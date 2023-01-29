@@ -1,0 +1,45 @@
+body{
+  font-size: 16px;
+}
+p{
+  font-size: 18px;
+}
+
+h3{
+  padding: 1rem;
+}
+.text-justified{
+  text-align: justify;
+}
+.class-hidden{
+  display: none;
+}
+.map-table{
+  margin: 0;
+  padding: 0;
+}
+.table-entries{
+  font-family: 'JetBrains Mono', monospace;
+}
+.matched-tick{
+  color: green;
+}
+.font-wt-normal{
+  font-weight: lighter;
+  text-align: center;
+}
+.dont-care-color{
+  color: red;
+}
+.form-control{
+  font-family: 'JetBrains Mono', monospace;
+}
+.reset-btn{
+  display: flex;
+  align-items: center;
+  align-content: center;
+}
+.finalResults{
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}

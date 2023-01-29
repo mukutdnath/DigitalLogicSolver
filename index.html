@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Digital Logic Solver</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;300&family=Roboto+Mono&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  <!-- Local CSS -->
+  <link rel="stylesheet" href="stylex.css">
+</head>
+
+<body>
+  <nav class="navbar sticky-top navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand">Digital Logic Solver</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="https://mukutdnath.github.io/website/">Mukut</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Other Links
+            </a>
+            <ul class="dropdown-menu">
+              <!-- update this section with other web projects -->
+              <li><a class="dropdown-item" href="https://mukutdnath.github.io/ComplexPhasorConversion/">Complex & Phasor Conversion</a></li>
+              <!-- <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li> -->
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container-xl text-center">
+    <p></p>
+    <h5 class="text-justified">
+      <ul>
+        <li>Uses Quine-McCluskey Algorithm</li>
+        <li>Dont Care Conditions allowed</li>
+        <li>Click on the K-map table entries to toggle between 0, 1, and Dont Care</li>
+        <li>After entering the desired truth table, click Compute Output to get the output</li>
+      </ul>
+    </h5>
+    <div class="row">
+      <div class="accordion" id="accordionExample">
+        <!-- 2 variables div -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              Two Variable
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                  <table class="table table-bordered border-primary table-entries">
+                    <thead>
+                      <tr>
+                        <th scope="col"><sub><em><b>x</b></em></sub> <sup><em><b>y</b></em></sup></th>
+                        <th scope="col">0</th>
+                        <th scope="col">1</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">0</th>
+                        <td><a href="#headingOne" id="Var2m0" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingOne" id="Var2m1" class="list-group-item list-group-item-action tableValue">0</a></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td><a href="#headingOne" id="Var2m2" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingOne" id="Var2m3" class="list-group-item list-group-item-action tableValue">0</a></td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                </div>
+                <div class="col-md-3 justify-content-center reset-btn ">
+                  <div class="row">
+                    <div class="col">
+                      <button type="button" class="btn btn-light btn-lg" onclick="resetResults(2)">Reset</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="input-group mb-3">
+                <span class="form-control finalResults finalResultsVar2S">0</span>
+              </div>
+              <div class="btn-group" role="group" aria-label="Basic radio toggle button group 2">
+                <button type="button" class="btn btn-outline-primary" onclick="calculateResult(2)">Compute Output</button>
+                <input type="radio" class="btn-check" name="btnradio2" id="btnradio22" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btnradio22" onclick="showResult(2)">Show Results Table</label>
+                <input type="radio" class="btn-check" name="btnradio2" id="btnradio23" autocomplete="off" checked>
+                <label class="btn btn-outline-primary" for="btnradio23" onclick="hideResult(2)">Hide Results Table</label>
+              </div>
+              <div class="container class-hidden" id="resultsTableVar2">
+                <div class="row">
+                  <h3>Prime Implicants Table</h3>
+                  <section>
+                    <div class="table-responsive text-nowrap">
+                      <table class="table table-bordered border-secondary table-entries table-stripped primeImplicantTableVar2">
+                        <thead class="primeImplicantTableVar2-head"></thead>
+                        <thead class="primeImplicantTableVar2-subhead"></thead>
+                        <!-- contents -->
+                        <tbody class="primeImplicantTableVar2-body"></tbody>
+                      </table>
+                    </div>
+                  </section>
+                </div>
+                <div class="row">
+                  <h3>Essential Prime Implicants Table</h3>
+                  <section>
+                    <div class="table-responsive text-nowrap">
+                      <table class="table table-bordered border-secondary table-entries table-stripped essentialPrimeImplicantsVar2">
+                        <thead class="essentialPrimeImplicantsVar2-head"></thead>
+                        <!-- contents -->
+                        <tbody class="essentialPrimeImplicantsVar2-body"></tbody>
+                        <!-- footer -->
+                        <tbody class="essentialPrimeImplicantsVar2-foot"></tbody>
+                      </table>
+                    </div>
+                  </section>
+                  <p></p>
+                  <p class="essentialPrimeImplicantsVar2-results"></p>
+                  <p class="finalResultsVar2"></p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <!-- 3 variables div -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              Three Variable
+            </button>
+          </h2>
+          <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                  <table class="table table-bordered border-primary table-entries">
+                    <thead>
+                      <tr>
+                        <th scope="col"><sub><em><b>x</b></em></sub> <sup><em><b>yz</b></em></sup></th>
+                        <th scope="col">00</th>
+                        <th scope="col">01</th>
+                        <th scope="col">11</th>
+                        <th scope="col">10</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">0</th>
+                        <td><a href="#headingTwo" id="Var3m0" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingTwo" id="Var3m1" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingTwo" id="Var3m3" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingTwo" id="Var3m2" class="list-group-item list-group-item-action tableValue">0</a></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td><a href="#headingTwo" id="Var3m4" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingTwo" id="Var3m5" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingTwo" id="Var3m7" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingTwo" id="Var3m6" class="list-group-item list-group-item-action tableValue">0</a></td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                </div>
+                <div class="col-md-3 justify-content-center reset-btn ">
+                  <div class="row">
+                    <div class="col">
+                      <button type="button" class="btn btn-light btn-lg" onclick="resetResults(3)">Reset</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="input-group mb-3">
+                <span class="form-control finalResults finalResultsVar3S">0</span>
+              </div>
+              <div class="btn-group" role="group" aria-label="Basic radio toggle button group 3">
+                <button type="button" class="btn btn-outline-primary" onclick="calculateResult(3)">Compute Output</button>
+                <input type="radio" class="btn-check" name="btnradio3" id="btnradio32" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btnradio32" onclick="showResult(3)">Show Results Table</label>
+                <input type="radio" class="btn-check" name="btnradio3" id="btnradio33" autocomplete="off" checked>
+                <label class="btn btn-outline-primary" for="btnradio33" onclick="hideResult(3)">Hide Results Table</label>
+              </div>
+              <div class="container class-hidden" id="resultsTableVar3">
+                <div class="row">
+                  <h3>Prime Implicants Table</h3>
+                  <section>
+                    <div class="table-responsive text-nowrap">
+                      <table class="table table-bordered border-secondary table-entries table-stripped primeImplicantTableVar3">
+                        <thead class="primeImplicantTableVar3-head"></thead>
+                        <thead class="primeImplicantTableVar3-subhead"></thead>
+                        <!-- contents -->
+                        <tbody class="primeImplicantTableVar3-body"></tbody>
+                      </table>
+                    </div>
+                  </section>
+                </div>
+                <div class="row">
+                  <h3>Essential Prime Implicants Table</h3>
+                  <section>
+                    <div class="table-responsive text-nowrap">
+                      <table class="table table-bordered border-secondary table-entries table-stripped essentialPrimeImplicantsVar3">
+                        <thead class="essentialPrimeImplicantsVar3-head"></thead>
+                        <!-- contents -->
+                        <tbody class="essentialPrimeImplicantsVar3-body"></tbody>
+                        <!-- footer -->
+                        <tbody class="essentialPrimeImplicantsVar3-foot"></tbody>
+                      </table>
+                    </div>
+                  </section>
+                  <p></p>
+                  <p class="essentialPrimeImplicantsVar3-results"></p>
+                  <p class="finalResultsVar3"></p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <!-- 4 variables div -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              Four Variable
+            </button>
+          </h2>
+          <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                  <table class="table table-bordered border-primary table-entries">
+                    <thead>
+                      <tr>
+                        <th scope="col"><sub><em><b>wx</b></em></sub> <sup><em><b>yz</b></em></sup></th>
+                        <th scope="col">00</th>
+                        <th scope="col">01</th>
+                        <th scope="col">11</th>
+                        <th scope="col">10</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">00</th>
+                        <td><a href="#headingThree" id="Var4m0" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var4m1" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var4m3" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var4m2" class="list-group-item list-group-item-action tableValue">0</a></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">01</th>
+                        <td><a href="#headingThree" id="Var4m4" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var4m5" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var4m7" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var4m6" class="list-group-item list-group-item-action tableValue">0</a></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">11</th>
+                        <td><a href="#headingThree" id="Var4m12" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var4m13" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var4m15" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var4m14" class="list-group-item list-group-item-action tableValue">0</a></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">10</th>
+                        <td><a href="#headingThree" id="Var4m8" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var4m9" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var4m11" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var4m10" class="list-group-item list-group-item-action tableValue">0</a></td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                </div>
+                <div class="col-md-3 justify-content-center reset-btn ">
+                  <div class="row">
+                    <div class="col">
+                      <button type="button" class="btn btn-light btn-lg" onclick="resetResults(4)">Reset</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="input-group mb-3">
+                <span class="form-control finalResults finalResultsVar4S">0</span>
+              </div>
+              <div class="btn-group" role="group" aria-label="Basic radio toggle button group 4">
+                <button type="button" class="btn btn-outline-primary" onclick="calculateResult(4)">Compute Output</button>
+                <input type="radio" class="btn-check" name="btnradio4" id="btnradio42" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btnradio42" onclick="showResult(4)">Show Results Table</label>
+                <input type="radio" class="btn-check" name="btnradio4" id="btnradio43" autocomplete="off" checked>
+                <label class="btn btn-outline-primary" for="btnradio43" onclick="hideResult(4)">Hide Results Table</label>
+              </div>
+              <div class="container class-hidden" id="resultsTableVar4">
+                <div class="row">
+                  <h3>Prime Implicants Table</h3>
+                  <section>
+                    <div class="table-responsive text-nowrap">
+                      <table class="table table-bordered border-secondary table-entries table-stripped primeImplicantTableVar4">
+                        <thead class="primeImplicantTableVar4-head"></thead>
+                        <thead class="primeImplicantTableVar4-subhead"></thead>
+                        <!-- contents -->
+                        <tbody class="primeImplicantTableVar4-body"></tbody>
+                      </table>
+                    </div>
+                  </section>
+                </div>
+                <div class="row">
+                  <h3>Essential Prime Implicants Table</h3>
+                  <section>
+                    <div class="table-responsive text-nowrap">
+                      <table class="table table-bordered border-secondary table-entries table-stripped essentialPrimeImplicantsVar4">
+                        <thead class="essentialPrimeImplicantsVar4-head"></thead>
+                        <!-- contents -->
+                        <tbody class="essentialPrimeImplicantsVar4-body"></tbody>
+                        <!-- footer -->
+                        <tbody class="essentialPrimeImplicantsVar4-foot"></tbody>
+                      </table>
+                    </div>
+                  </section>
+                  <p></p>
+                  <p class="essentialPrimeImplicantsVar4-results"></p>
+                  <p class="finalResultsVar4"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- n variables div -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingFour">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+              General n Variables
+            </button>
+          </h2>
+          <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <h6 class="text-justified">
+                <ul>
+                  <li>Provide Minterms and Dont Care Terms as inputs</li>
+                  <li>For simplicity, maximum number of variables allowed is 20 till now</li>
+                  <li>The No. of Variables input is optional</li>
+                  <li>If provided No. of Variales cannot support the maximum given Minterm, then it will automaitaclly get updated to least value required
+                  <br>for example, if maximum Minterm provided is 13, and No. of Variables is 3, it will get updated to 4
+                </li>
+                </ul>
+              </h6>
+              <div class="input-group mb-3">
+                <input type="text" id="nVarsMinterms" class="form-control" placeholder="Minterms" aria-label="Minterms" aria-describedby="button-addon2" style="width: 250px;">
+                <input type="text" id="nVarsDontCares" class="form-control" placeholder="Dont Cares" aria-label="Dont Cares" aria-describedby="button-addon2" style="width: 250px;">
+                <input type="text" id="nVarsNoVars" class="form-control" placeholder="No. of Variables" aria-label="No. of Variables" aria-describedby="button-addon2" style="width: 20px;">
+                <button class="btn btn-outline-secondary btn-lg" type="button" id="button-addon2" onclick="resetResultsn()">Reset</button>
+              </div>
+              <div class="input-group mb-3">
+                <span class="form-control finalResults finalResultsVar0S">0</span>
+              </div>
+              <div class="btn-group" role="group" aria-label="Basic radio toggle button group n">
+                <button type="button" class="btn btn-outline-primary" onclick="calculateResultn()">Compute Output</button>
+                <input type="radio" class="btn-check" name="btnradion" id="btnradion2" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btnradion2" onclick="showResult(0)">Show Results Table</label>
+                <input type="radio" class="btn-check" name="btnradion" id="btnradion3" autocomplete="off" checked>
+                <label class="btn btn-outline-primary" for="btnradion3" onclick="hideResult(0)">Hide Results Table</label>
+              </div>
+              <div class="modal fade" id="common-error" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel1">Common Input Error</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      Minterms and Dont Care terms contain one or more common terms. Either Remove the common dont care terms or re-enter the minterms and dont care terms.
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" id="common-error-remove" class="btn btn-secondary common-error-btn" data-bs-dismiss="modal" aria-label="Close">Remove Common Terms</button>
+                      <button type="button" id="common-error-reenter" class="btn btn-primary common-error-btn" data-bs-dismiss="modal" aria-label="Close">Re-enter terms</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal fade" id="no-terms-error" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel2">No. of Terms Error</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      No. of Variables more than 20 is not supported as of now.
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" id="no-term-error-ok" class="btn btn-primary no-term-error-btn" data-bs-dismiss="modal" aria-label="Close">Ok</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="container class-hidden" id="resultsTableVar0">
+                <div class="row">
+                  <h3>Prime Implicants Table</h3>
+                  <section>
+                    <div class="table-responsive text-nowrap">
+                      <table class="table table-bordered border-secondary table-entries table-stripped primeImplicantTableVar0">
+                        <thead class="primeImplicantTableVar0-head"></thead>
+                        <thead class="primeImplicantTableVar0-subhead"></thead>
+                        <!-- contents -->
+                        <tbody class="primeImplicantTableVar0-body"></tbody>
+                      </table>
+                    </div>
+                  </section>
+                </div>
+                <div class="row">
+                  <h3>Essential Prime Implicants Table</h3>
+                  <section>
+                    <div class="table-responsive text-nowrap">
+                      <table class="table table-bordered border-secondary table-entries table-stripped essentialPrimeImplicantsVar0">
+                        <thead class="essentialPrimeImplicantsVar0-head"></thead>
+                        <!-- contents -->
+                        <tbody class="essentialPrimeImplicantsVar0-body"></tbody>
+                        <!-- footer -->
+                        <tbody class="essentialPrimeImplicantsVar0-foot"></tbody>
+                      </table>
+                    </div>
+                  </section>
+                  <p></p>
+                  <p class="essentialPrimeImplicantsVar0-results"></p>
+                  <p class="finalResultsVar0"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+
+  </div>
+  <script src="index.js" charset="utf-8"></script>
+</body>
+
+</html>
