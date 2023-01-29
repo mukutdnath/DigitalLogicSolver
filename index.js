@@ -574,8 +574,8 @@ function calculateResultn() {
   var minTerms = document.querySelector("#nVarsMinterms").value.split(" ");
   var dontCare = document.querySelector("#nVarsDontCares").value.split(" ");
   var noVars = parseFloat(document.querySelector("#nVarsNoVars").value.split(" ")[0]);
-  if (isNaN(noVars)){
-    noVars = 0;
+  if (isNaN(noVars) || noVars < 2){
+    noVars = 2;
   }
   for (var i = 0; i < minTerms.length; i++) {
     minTerms[i] = parseFloat(minTerms[i]);
