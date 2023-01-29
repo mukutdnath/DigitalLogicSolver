@@ -620,7 +620,8 @@ function calculateResultn() {
   }
   //-------------------------------------------------------
   function calculateResultnNext(minTerms, dontCare, noVars) {
-    if (noVars > 20){
+    var maxTerm = getMaxOfArray(allTerms);
+    if (noVars > 20 || maxTerm > Math.pow(2, 20)){
       var myModal2 = new bootstrap.Modal(document.getElementById('no-terms-error'), "data-bs-toggle=\"modal\"");
       myModal2.show();
       return 0;
@@ -642,7 +643,6 @@ function calculateResultn() {
     // console.log(noVars);
     //----------------------------------------------
     // next tasks, compare no. of variables and make decision.
-    var maxTerm = getMaxOfArray(allTerms);
     if (maxTerm > Math.pow(2, noVars) - 1) {
       for (var i = noVars + 1; i < 20; i++) {                  // considering that maximum allowable no of variables is 20
         if (Math.pow(2, i) > maxTerm) {
