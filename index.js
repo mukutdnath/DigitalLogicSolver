@@ -12,6 +12,8 @@ function toggleTableValues() {
   } else {
     this.innerHTML = 0;
   }
+  // console.log(this.id[3]);
+  calculateResult(this.id[3]);
 }
 
 
@@ -568,13 +570,17 @@ function calculateResult(noVars) {
   }
   document.querySelector(identifierFinalResult).innerHTML = result;
   document.querySelector(identifierFinalResultS).innerHTML = resultS;
+
+  var element = document.querySelector(identifierFinalResultS);
+  element.classList.add("border-success");
+  element.classList.add("shadow-sm");
 }
 
 function calculateResultn() {
   var minTerms = document.querySelector("#nVarsMinterms").value.split(" ");
   var dontCare = document.querySelector("#nVarsDontCares").value.split(" ");
   var noVars = parseFloat(document.querySelector("#nVarsNoVars").value.split(" ")[0]);
-  if (isNaN(noVars) || noVars < 2){
+  if (isNaN(noVars) || noVars < 2) {
     noVars = 2;
   }
   for (var i = 0; i < minTerms.length; i++) {
@@ -585,6 +591,8 @@ function calculateResultn() {
   }
   minTerms = removeDuplicates(minTerms);
   dontCare = removeDuplicates(dontCare);
+
+  var allTerms = minTerms.concat(dontCare);
 
   var noCommon = true;
   for (var i = 0; i < minTerms.length; i++) {
@@ -610,33 +618,34 @@ function calculateResultn() {
         if (this.innerHTML == 'Re-enter terms') {
           return 0;
         } else {
-          calculateResultnNext(minTerms, dontCare, noVars);
+          while (dontCare.length > 0) {
+            dontCare.pop();
+          }
+          allTerms = removeDuplicates(allTerms);
+          for (var j = 0; j < allTerms.length; j++) {
+            if (minTerms.includes(allTerms[j])) {
+              continue;
+            } else {
+              dontCare.push(allTerms[j]);
+            }
+          }
+          calculateResultnNext(allTerms, minTerms, dontCare, noVars);
+          document.querySelector("#nVarsDontCares").value = dontCare.join(" ");
         }
       });
     }
 
   } else {
-    calculateResultnNext(minTerms, dontCare, noVars);
+    calculateResultnNext(allTerms, minTerms, dontCare, noVars);
   }
   //-------------------------------------------------------
-  function calculateResultnNext(minTerms, dontCare, noVars) {
-    if (noVars > 20){
+  function calculateResultnNext(allTerms, minTerms, dontCare, noVars) {
+    if (noVars > 20) {
       var myModal2 = new bootstrap.Modal(document.getElementById('no-terms-error'), "data-bs-toggle=\"modal\"");
       myModal2.show();
       return 0;
     }
-    var allTerms = minTerms.concat(dontCare);
-    while (dontCare.length > 0) {
-      dontCare.pop();
-    }
-    allTerms = removeDuplicates(allTerms);
-    for (var j = 0; j < allTerms.length; j++) {
-      if (minTerms.includes(allTerms[j])) {
-        continue;
-      } else {
-        dontCare.push(allTerms[j]);
-      }
-    }
+
     // console.log(minTerms);
     // console.log(dontCare);
     // console.log(noVars);
@@ -644,7 +653,7 @@ function calculateResultn() {
     // next tasks, compare no. of variables and make decision.
     var maxTerm = getMaxOfArray(allTerms);
     if (maxTerm > Math.pow(2, noVars) - 1) {
-      for (var i = noVars + 1; i < 20; i++) {                  // considering that maximum allowable no of variables is 20
+      for (var i = noVars + 1; i < 20; i++) { // considering that maximum allowable no of variables is 20
         if (Math.pow(2, i) > maxTerm) {
           noVars = i;
           break;
@@ -1145,7 +1154,7 @@ function calculateResultn() {
     if (minTerms.length == 0) {
       var resultS = "0";
       var result = "No minterms are present in the truth table, the logic formula is <br><span style=\"font-family: 'JetBrains Mono', monospace;\">0</span>";
-    } else if (primeImplicantsMinterms.length == Math.pow(2,noOfVars)) {
+    } else if (primeImplicantsMinterms.length == Math.pow(2, noOfVars)) {
       var resultS = "1";
       var result = "All the minterms are present in the truth table, the logic formula is <br><span style=\"font-family: 'JetBrains Mono', monospace;\">1</span>";
     } else if (remainingMinterms.length == 0) {
@@ -1214,6 +1223,9 @@ function calculateResultn() {
     }
     document.querySelector(identifierFinalResult).innerHTML = result;
     document.querySelector(identifierFinalResultS).innerHTML = resultS;
+    var element = document.querySelector(identifierFinalResultS);
+    element.classList.add("border-success");
+    element.classList.add("shadow-sm");
 
     //-------------------------------
   }
@@ -1264,7 +1276,7 @@ function getTermFromLiteral(literal) {
       20: "T",
       21: "U"
     };
-    for (var i = 1; i < m+1; i++){
+    for (var i = 1; i < m + 1; i++) {
       temp.push(dictTableNo[i].toLowerCase());
     }
     mToVars[m] = temp;
@@ -1312,6 +1324,9 @@ function resetResults(noOfVars) {
     document.querySelector(temp).innerHTML = 0;
   }
   document.querySelector(identifierResultsS).innerHTML = 0;
+  var element = document.querySelector(identifierResultsS);
+  element.classList.remove("border-success");
+  element.classList.remove("shadow-sm");
 
   // resetting prime implicants table and essential prime implicants table
   var identifierPITable = ".primeImplicantTableVar";
@@ -1348,6 +1363,9 @@ function resetResultsn() {
   identifierResultsS = identifierResultsS.concat("0");
   identifierResultsS = identifierResultsS.concat("S");
   document.querySelector(identifierResultsS).innerHTML = 0;
+  var element = document.querySelector(identifierResultsS);
+  element.classList.remove("border-success");
+  element.classList.remove("shadow-sm");
   // resetting prime implicants table and essential prime implicants table
   var identifierPITable = ".primeImplicantTableVar";
   identifierPITable = identifierPITable.concat("0");
@@ -1371,4 +1389,55 @@ function resetResultsn() {
   var identifierFinalResults = ".finalResultsVar";
   identifierFinalResults = identifierFinalResults.concat("0");
   document.querySelector(identifierFinalResults).innerHTML = "";
+}
+
+function lightDarkMode() {
+  var element = document.getElementsByTagName("BODY")[0];
+  // console.log(element.getAttribute("data-bs-theme"));
+  var theme = element.getAttribute("data-bs-theme");
+  if (theme == "dark") {
+    element.removeAttribute("data-bs-theme");
+    element.setAttribute("data-bs-theme", "light");
+    var iconBtn = document.querySelector(".btn-icon");
+    iconBtn.classList.remove("btn-dark");
+    iconBtn.classList.add("btn-light");
+    var icon = document.querySelector(".fa");
+    icon.classList.remove("fa-moon");
+    icon.classList.add("fa-sun");
+    var resetBtn =  document.querySelectorAll(".btn-input-reset");
+    for(var i=0; i<resetBtn.length; i++){
+      resetBtn[i].classList.remove("btn-dark");
+      resetBtn[i].classList.add("btn-light");
+    }
+    var finalResults =  document.querySelectorAll(".finalResults");
+    for(var i=0; i<finalResults.length; i++){
+      finalResults[i].classList.remove("bg-dark");
+    }
+    document.querySelector("#nVarsMinterms").classList.remove("bg-dark");
+    document.querySelector("#nVarsDontCares").classList.remove("bg-dark");
+    document.querySelector("#nVarsNoVars").classList.remove("bg-dark");
+
+  } else {
+    element.removeAttribute("data-bs-theme");
+    element.setAttribute("data-bs-theme", "dark");
+    var iconBtn = document.querySelector(".btn-icon");
+    iconBtn.classList.remove("btn-light");
+    iconBtn.classList.add("btn-dark");
+    var icon = document.querySelector(".fa");
+    icon.classList.remove("fa-sun");
+    icon.classList.add("fa-moon");
+    var resetBtn =  document.querySelectorAll(".btn-input-reset");
+    for(var i=0; i<resetBtn.length; i++){
+      resetBtn[i].classList.remove("btn-light");
+      resetBtn[i].classList.add("btn-dark");
+    }
+    var finalResults =  document.querySelectorAll(".finalResults");
+    for(var i=0; i<finalResults.length; i++){
+      finalResults[i].classList.add("bg-dark");
+    }
+    document.querySelector("#nVarsMinterms").classList.add("bg-dark");
+    document.querySelector("#nVarsDontCares").classList.add("bg-dark");
+    document.querySelector("#nVarsNoVars").classList.add("bg-dark");
+
+  } 
 }

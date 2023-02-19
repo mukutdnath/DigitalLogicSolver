@@ -12,15 +12,15 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   <!-- Local CSS -->
   <link rel="stylesheet" href="stylex.css">
+  <!-- font awesome -->
+  <script src="https://kit.fontawesome.com/2b30d83c08.js" crossorigin="anonymous"></script>
 </head>
 
-<body>
-  <nav class="navbar sticky-top navbar-expand-lg bg-body-tertiary">
+<body data-bs-theme="light">
+  <nav class="navbar sticky-top navbar-expand-lg bg-body-tertiary border-bottom border-info">
     <div class="container-fluid">
       <a class="navbar-brand">Digital Logic Solver</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+
       <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
@@ -36,10 +36,18 @@
               <!-- <li><a class="dropdown-item" href="#">Another action</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Something else here</a></li> -->
+             <!-- fa fa-solid fa-sun -->
             </ul>
           </li>
         </ul>
       </div>
+      <span class="navbar-text">
+        <button class="btn btn-light btn-icon" onclick="lightDarkMode()"><span><i class="fa fa-solid fa-sun fa-lg"></i></span></button>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </span>
+
     </div>
   </nav>
   <div class="container-xl text-center">
@@ -48,14 +56,13 @@
       <ul>
         <li>Uses Quine-McCluskey Algorithm</li>
         <li>Dont Care Conditions allowed</li>
-        <li>Click on the K-map table entries to toggle between 0, 1, and Dont Care</li>
-        <li>After entering the desired truth table, click Compute Output to get the output</li>
+        <li>Click on the table entries to toggle between 0, 1, and Dont Care</li>
       </ul>
     </h5>
     <div class="row">
-      <div class="accordion" id="accordionExample">
+      <div class="accordion shadow" id="accordionExample">
         <!-- 2 variables div -->
-        <div class="accordion-item">
+        <div class="accordion-item border-info">
           <h2 class="accordion-header" id="headingOne">
             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
               Two Variable
@@ -92,7 +99,7 @@
                 <div class="col-md-3 justify-content-center reset-btn ">
                   <div class="row">
                     <div class="col">
-                      <button type="button" class="btn btn-light btn-lg" onclick="resetResults(2)">Reset</button>
+                      <button type="button" class="btn btn-light btn-lg btn-input-reset" onclick="resetResults(2)">Reset</button>
                     </div>
                   </div>
                 </div>
@@ -101,7 +108,7 @@
                 <span class="form-control finalResults finalResultsVar2S">0</span>
               </div>
               <div class="btn-group" role="group" aria-label="Basic radio toggle button group 2">
-                <button type="button" class="btn btn-outline-primary" onclick="calculateResult(2)">Compute Output</button>
+                <!-- <button type="button" class="btn btn-outline-primary" onclick="calculateResult(2)">Compute Output</button> -->
                 <input type="radio" class="btn-check" name="btnradio2" id="btnradio22" autocomplete="off">
                 <label class="btn btn-outline-primary" for="btnradio22" onclick="showResult(2)">Show Results Table</label>
                 <input type="radio" class="btn-check" name="btnradio2" id="btnradio23" autocomplete="off" checked>
@@ -144,7 +151,7 @@
           </div>
         </div>
         <!-- 3 variables div -->
-        <div class="accordion-item">
+        <div class="accordion-item border-info">
           <h2 class="accordion-header" id="headingTwo">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
               Three Variable
@@ -187,7 +194,7 @@
                 <div class="col-md-3 justify-content-center reset-btn ">
                   <div class="row">
                     <div class="col">
-                      <button type="button" class="btn btn-light btn-lg" onclick="resetResults(3)">Reset</button>
+                      <button type="button" class="btn btn-light btn-lg btn-input-reset" onclick="resetResults(3)">Reset</button>
                     </div>
                   </div>
                 </div>
@@ -196,7 +203,7 @@
                 <span class="form-control finalResults finalResultsVar3S">0</span>
               </div>
               <div class="btn-group" role="group" aria-label="Basic radio toggle button group 3">
-                <button type="button" class="btn btn-outline-primary" onclick="calculateResult(3)">Compute Output</button>
+                <!-- <button type="button" class="btn btn-outline-primary" onclick="calculateResult(3)">Compute Output</button> -->
                 <input type="radio" class="btn-check" name="btnradio3" id="btnradio32" autocomplete="off">
                 <label class="btn btn-outline-primary" for="btnradio32" onclick="showResult(3)">Show Results Table</label>
                 <input type="radio" class="btn-check" name="btnradio3" id="btnradio33" autocomplete="off" checked>
@@ -239,7 +246,7 @@
           </div>
         </div>
         <!-- 4 variables div -->
-        <div class="accordion-item">
+        <div class="accordion-item border-info">
           <h2 class="accordion-header" id="headingThree">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
               Four Variable
@@ -296,7 +303,7 @@
                 <div class="col-md-3 justify-content-center reset-btn ">
                   <div class="row">
                     <div class="col">
-                      <button type="button" class="btn btn-light btn-lg" onclick="resetResults(4)">Reset</button>
+                      <button type="button" class="btn btn-light btn-lg btn-input-reset" onclick="resetResults(4)">Reset</button>
                     </div>
                   </div>
                 </div>
@@ -305,7 +312,7 @@
                 <span class="form-control finalResults finalResultsVar4S">0</span>
               </div>
               <div class="btn-group" role="group" aria-label="Basic radio toggle button group 4">
-                <button type="button" class="btn btn-outline-primary" onclick="calculateResult(4)">Compute Output</button>
+                <!-- <button type="button" class="btn btn-outline-primary" onclick="calculateResult(4)">Compute Output</button> -->
                 <input type="radio" class="btn-check" name="btnradio4" id="btnradio42" autocomplete="off">
                 <label class="btn btn-outline-primary" for="btnradio42" onclick="showResult(4)">Show Results Table</label>
                 <input type="radio" class="btn-check" name="btnradio4" id="btnradio43" autocomplete="off" checked>
@@ -347,7 +354,7 @@
           </div>
         </div>
         <!-- n variables div -->
-        <div class="accordion-item">
+        <div class="accordion-item border-info">
           <h2 class="accordion-header" id="headingFour">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
               General n Variables
@@ -360,17 +367,31 @@
                   <li>Provide Minterms and Dont Care Terms as inputs</li>
                   <li>For simplicity, maximum number of variables allowed is 20 till now</li>
                   <li>The No. of Variables input is optional</li>
-                  <li>If No. of Variables input is less than 2, it will be set back to 2</li>                  
+                  <li>If No. of Variables input is less than 2, it will be set back to 2</li>
                   <li>If provided No. of Variales cannot support the maximum given Minterm, then it will automaitaclly get updated to least value required
-                  <br>for example, if maximum Minterm provided is 13, and No. of Variables is 3, it will get updated to 4
-                </li>
+                    <br>for example, if maximum Minterm provided is 13, and No. of Variables is 3, it will get updated to 4
+                  </li>
                 </ul>
               </h6>
               <div class="input-group mb-3">
-                <input type="text" id="nVarsMinterms" class="form-control" placeholder="Minterms" aria-label="Minterms" aria-describedby="button-addon2" style="width: 250px;">
+                <div class="form-floating mb-3">
+                  <input type="text" id="nVarsMinterms" class="form-control" placeholder="Minterms">
+                  <label for="nVarsMinterms">Minterms</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input type="text" id="nVarsDontCares" class="form-control" placeholder="Dont Cares">
+                  <label for="nVarsDontCares">Dont Care Terms</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input type="text" id="nVarsNoVars" class="form-control" placeholder="No. of Variables">
+                  <label for="nVarsNoVars">No. of Variables</label>
+                </div>
+                <!-- <input type="text" id="nVarsMinterms" class="form-control" placeholder="Minterms" aria-label="Minterms" aria-describedby="button-addon2" style="width: 250px;">
                 <input type="text" id="nVarsDontCares" class="form-control" placeholder="Dont Cares" aria-label="Dont Cares" aria-describedby="button-addon2" style="width: 250px;">
-                <input type="text" id="nVarsNoVars" class="form-control" placeholder="No. of Variables" aria-label="No. of Variables" aria-describedby="button-addon2" style="width: 20px;">
-                <button class="btn btn-outline-secondary btn-lg" type="button" id="button-addon2" onclick="resetResultsn()">Reset</button>
+                <input type="text" id="nVarsNoVars" class="form-control" placeholder="No. of Variables" aria-label="No. of Variables" aria-describedby="button-addon2" style="width: 20px;"> -->
+
+                <!-- <button type="button" class="btn btn-outline-primary">Primary</button> -->
+                <button class="btn btn-outline-secondary n-reset" type="button" onclick="resetResultsn()">Reset</button>
               </div>
               <div class="input-group mb-3">
                 <span class="form-control finalResults finalResultsVar0S">0</span>
