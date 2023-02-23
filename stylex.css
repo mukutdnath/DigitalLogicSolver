@@ -1,7 +1,6 @@
 body{
   font-size: 16px;
 }
-
 p{
   font-size: 18px;
 }
@@ -48,5 +47,18 @@ h3{
   margin-bottom: 16px;
 }
 .accordion{
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.75rem;
+}
+.rounded-result{
+  /* height: 2.5rem; */
+  border-radius: 1.5rem;
+}
+.result-check{
+  width: 7.5rem;
+}
+.w-ninput{
+  width: 50%;
+}
+.my-mt-cont{
+  margin-top: 5rem;
 }
