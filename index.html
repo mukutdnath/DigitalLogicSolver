@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;300&family=Roboto+Mono&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
   <!-- Local CSS -->
   <link rel="stylesheet" href="stylex.css">
   <!-- font awesome -->
@@ -17,10 +18,12 @@
 </head>
 
 <body data-bs-theme="light">
-  <nav class="navbar sticky-top navbar-expand-lg bg-body-tertiary border-bottom border-info">
+  <nav class="navbar fixed-top navbar-expand-lg bg-body border-bottom border-2 border-primary shadow-sm">
     <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
       <a class="navbar-brand">Digital Logic Solver</a>
-
       <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
@@ -36,21 +39,24 @@
               <!-- <li><a class="dropdown-item" href="#">Another action</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Something else here</a></li> -->
-             <!-- fa fa-solid fa-sun -->
+              <!-- fa fa-solid fa-sun -->
             </ul>
           </li>
         </ul>
       </div>
-      <span class="navbar-text">
-        <button class="btn btn-light btn-icon" onclick="lightDarkMode()"><span><i class="fa fa-solid fa-sun fa-lg"></i></span></button>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      </span>
-
+      <!-- <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link btn-icon" aria-current="page" href="javascript:lightDarkMode()"><span><i class="bi bi-brightness-high fs-5"></i></span></a>
+        </li>
+      </ul> -->
+      <a class="nav-item nav-link btn-icon" aria-current="page" href="javascript:lightDarkMode()"><span><i class="bi bi-brightness-high fs-5"></i></span></a>
+      <!-- <span class="navbar-text">
+        <button class="btn btn-light btn-icon rounded-circle" onclick="lightDarkMode()"><span><i class="bi bi-brightness-high fs-5"></i></span></button>
+      </span> -->
     </div>
   </nav>
-  <div class="container-xl text-center">
+
+  <div class="container-xl text-center my-mt-cont">
     <p></p>
     <h5 class="text-justified">
       <ul>
@@ -60,7 +66,7 @@
       </ul>
     </h5>
     <div class="row">
-      <div class="accordion shadow" id="accordionExample">
+      <div class="accordion shadow rounded-4" id="accordionExample">
         <!-- 2 variables div -->
         <div class="accordion-item border-info">
           <h2 class="accordion-header" id="headingOne">
@@ -96,23 +102,16 @@
                   </table>
 
                 </div>
-                <div class="col-md-3 justify-content-center reset-btn ">
-                  <div class="row">
-                    <div class="col">
-                      <button type="button" class="btn btn-light btn-lg btn-input-reset" onclick="resetResults(2)">Reset</button>
-                    </div>
-                  </div>
+                <div class="col-md-3">
                 </div>
               </div>
               <div class="input-group mb-3">
-                <span class="form-control finalResults finalResultsVar2S">0</span>
+                <span class="form-control finalResults finalResultsVar2S rounded-result">0</span>
               </div>
-              <div class="btn-group" role="group" aria-label="Basic radio toggle button group 2">
-                <!-- <button type="button" class="btn btn-outline-primary" onclick="calculateResult(2)">Compute Output</button> -->
-                <input type="radio" class="btn-check" name="btnradio2" id="btnradio22" autocomplete="off">
-                <label class="btn btn-outline-primary" for="btnradio22" onclick="showResult(2)">Show Results Table</label>
-                <input type="radio" class="btn-check" name="btnradio2" id="btnradio23" autocomplete="off" checked>
-                <label class="btn btn-outline-primary" for="btnradio23" onclick="hideResult(2)">Hide Results Table</label>
+              <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off" disabled>
+                <label class="btn btn-outline-primary rounded-result result-check" id="labelcheck2" for="btncheck2" onclick="results(2)">Show Results</label>
+                <button type="button" class="btn btn-outline-primary rounded-result" onclick="resetResults(2)">Reset</button>
               </div>
               <div class="container class-hidden" id="resultsTableVar2">
                 <div class="row">
@@ -191,23 +190,16 @@
                   </table>
 
                 </div>
-                <div class="col-md-3 justify-content-center reset-btn ">
-                  <div class="row">
-                    <div class="col">
-                      <button type="button" class="btn btn-light btn-lg btn-input-reset" onclick="resetResults(3)">Reset</button>
-                    </div>
-                  </div>
+                <div class="col-md-3">
                 </div>
               </div>
               <div class="input-group mb-3">
-                <span class="form-control finalResults finalResultsVar3S">0</span>
+                <span class="form-control finalResults finalResultsVar3S rounded-result">0</span>
               </div>
-              <div class="btn-group" role="group" aria-label="Basic radio toggle button group 3">
-                <!-- <button type="button" class="btn btn-outline-primary" onclick="calculateResult(3)">Compute Output</button> -->
-                <input type="radio" class="btn-check" name="btnradio3" id="btnradio32" autocomplete="off">
-                <label class="btn btn-outline-primary" for="btnradio32" onclick="showResult(3)">Show Results Table</label>
-                <input type="radio" class="btn-check" name="btnradio3" id="btnradio33" autocomplete="off" checked>
-                <label class="btn btn-outline-primary" for="btnradio33" onclick="hideResult(3)">Hide Results Table</label>
+              <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off" disabled>
+                <label class="btn btn-outline-primary rounded-result result-check" id="labelcheck3" for="btncheck3" onclick="results(3)">Show Results</label>
+                <button type="button" class="btn btn-outline-primary rounded-result" onclick="resetResults(3)">Reset</button>
               </div>
               <div class="container class-hidden" id="resultsTableVar3">
                 <div class="row">
@@ -300,23 +292,16 @@
                   </table>
 
                 </div>
-                <div class="col-md-3 justify-content-center reset-btn ">
-                  <div class="row">
-                    <div class="col">
-                      <button type="button" class="btn btn-light btn-lg btn-input-reset" onclick="resetResults(4)">Reset</button>
-                    </div>
-                  </div>
+                <div class="col-md-3">
                 </div>
               </div>
               <div class="input-group mb-3">
-                <span class="form-control finalResults finalResultsVar4S">0</span>
+                <span class="form-control finalResults finalResultsVar4S rounded-result">0</span>
               </div>
-              <div class="btn-group" role="group" aria-label="Basic radio toggle button group 4">
-                <!-- <button type="button" class="btn btn-outline-primary" onclick="calculateResult(4)">Compute Output</button> -->
-                <input type="radio" class="btn-check" name="btnradio4" id="btnradio42" autocomplete="off">
-                <label class="btn btn-outline-primary" for="btnradio42" onclick="showResult(4)">Show Results Table</label>
-                <input type="radio" class="btn-check" name="btnradio4" id="btnradio43" autocomplete="off" checked>
-                <label class="btn btn-outline-primary" for="btnradio43" onclick="hideResult(4)">Hide Results Table</label>
+              <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                <input type="checkbox" class="btn-check" id="btncheck4" autocomplete="off" disabled>
+                <label class="btn btn-outline-primary rounded-result result-check" id="labelcheck4" for="btncheck4" onclick="results(4)">Show Results</label>
+                <button type="button" class="btn btn-outline-primary rounded-result" onclick="resetResults(4)">Reset</button>
               </div>
               <div class="container class-hidden" id="resultsTableVar4">
                 <div class="row">
@@ -353,14 +338,300 @@
             </div>
           </div>
         </div>
-        <!-- n variables div -->
         <div class="accordion-item border-info">
           <h2 class="accordion-header" id="headingFour">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-              General n Variables
+              Five Variable
             </button>
           </h2>
           <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                  <table class="table table-bordered border-primary table-entries">
+                    <thead>
+                      <tr>
+                        <th scope="col"><sub><em><b>vw</b></em></sub> <sup><em><b>xyz</b></em></sup></th>
+                        <th scope="col">000</th>
+                        <th scope="col">001</th>
+                        <th scope="col">011</th>
+                        <th scope="col">010</th>
+                        <th scope="col">110</th>
+                        <th scope="col">111</th>
+                        <th scope="col">101</th>
+                        <th scope="col">100</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">00</th>
+                        <td><a href="#headingThree" id="Var5m0" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var5m1" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var5m3" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var5m2" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var5m6" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var5m7" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var5m5" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var5m4" class="list-group-item list-group-item-action tableValue">0</a></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">01</th>
+                        <td><a href="#headingThree" id="Var5m8" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var5m9" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var5m11" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var5m10" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var5m14" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var5m15" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var5m13" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var5m12" class="list-group-item list-group-item-action tableValue">0</a></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">11</th>
+                        <td><a href="#headingThree" id="Var5m24" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var5m25" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var5m27" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var5m26" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var5m30" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var5m31" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var5m29" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var5m28" class="list-group-item list-group-item-action tableValue">0</a></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">10</th>
+                        <td><a href="#headingThree" id="Var5m16" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var5m17" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var5m19" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var5m18" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var5m22" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var5m23" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var5m21" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var5m20" class="list-group-item list-group-item-action tableValue">0</a></td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                </div>
+                <div class="col-md-2">
+
+                </div>
+              </div>
+              <div class="input-group mb-3">
+                <span class="form-control finalResults finalResultsVar5S rounded-result">0</span>
+              </div>
+              <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                <input type="checkbox" class="btn-check" id="btncheck5" autocomplete="off" disabled>
+                <label class="btn btn-outline-primary rounded-result result-check" id="labelcheck5" for="btncheck5" onclick="results(5)">Show Results</label>
+                <button type="button" class="btn btn-outline-primary rounded-result" onclick="resetResults(5)">Reset</button>
+              </div>
+              <div class="container class-hidden" id="resultsTableVar5">
+                <div class="row">
+                  <h3>Prime Implicants Table</h3>
+                  <section>
+                    <div class="table-responsive text-nowrap">
+                      <table class="table table-bordered border-secondary table-entries table-stripped primeImplicantTableVar5">
+                        <thead class="primeImplicantTableVar5-head"></thead>
+                        <thead class="primeImplicantTableVar5-subhead"></thead>
+                        <!-- contents -->
+                        <tbody class="primeImplicantTableVar5-body"></tbody>
+                      </table>
+                    </div>
+                  </section>
+                </div>
+                <div class="row">
+                  <h3>Essential Prime Implicants Table</h3>
+                  <section>
+                    <div class="table-responsive text-nowrap">
+                      <table class="table table-bordered border-secondary table-entries table-stripped essentialPrimeImplicantsVar5">
+                        <thead class="essentialPrimeImplicantsVar5-head"></thead>
+                        <!-- contents -->
+                        <tbody class="essentialPrimeImplicantsVar5-body"></tbody>
+                        <!-- footer -->
+                        <tbody class="essentialPrimeImplicantsVar5-foot"></tbody>
+                      </table>
+                    </div>
+                  </section>
+                  <p></p>
+                  <p class="essentialPrimeImplicantsVar5-results"></p>
+                  <p class="finalResultsVar5"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item border-info">
+          <h2 class="accordion-header" id="headingFive">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+              Six Variable
+            </button>
+          </h2>
+          <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                  <table class="table table-bordered border-primary table-entries">
+                    <thead>
+                      <tr>
+                        <th scope="col"><sub><em><b>uvw</b></em></sub> <sup><em><b>xyz</b></em></sup></th>
+                        <th scope="col">000</th>
+                        <th scope="col">001</th>
+                        <th scope="col">011</th>
+                        <th scope="col">010</th>
+                        <th scope="col">110</th>
+                        <th scope="col">111</th>
+                        <th scope="col">101</th>
+                        <th scope="col">100</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">000</th>
+                        <td><a href="#headingThree" id="Var6m0" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m1" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m3" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m2" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m6" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m7" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m5" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m4" class="list-group-item list-group-item-action tableValue">0</a></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">001</th>
+                        <td><a href="#headingThree" id="Var6m8" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m9" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m11" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m10" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m14" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m15" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m13" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m12" class="list-group-item list-group-item-action tableValue">0</a></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">011</th>
+                        <td><a href="#headingThree" id="Var6m24" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m25" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m27" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m26" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m30" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m31" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m29" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m28" class="list-group-item list-group-item-action tableValue">0</a></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">010</th>
+                        <td><a href="#headingThree" id="Var6m16" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m17" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m19" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m18" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m22" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m23" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m21" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m20" class="list-group-item list-group-item-action tableValue">0</a></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">110</th>
+                        <td><a href="#headingThree" id="Var6m48" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m49" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m51" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m50" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m54" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m55" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m53" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m52" class="list-group-item list-group-item-action tableValue">0</a></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">111</th>
+                        <td><a href="#headingThree" id="Var6m56" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m57" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m59" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m58" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m62" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m63" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m61" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m60" class="list-group-item list-group-item-action tableValue">0</a></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">101</th>
+                        <td><a href="#headingThree" id="Var6m40" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m41" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m43" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m42" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m46" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m47" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m45" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m44" class="list-group-item list-group-item-action tableValue">0</a></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">100</th>
+                        <td><a href="#headingThree" id="Var6m32" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m33" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m35" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m34" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m38" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m39" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m37" class="list-group-item list-group-item-action tableValue">0</a></td>
+                        <td><a href="#headingThree" id="Var6m36" class="list-group-item list-group-item-action tableValue">0</a></td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                </div>
+                <div class="col-md-2">
+
+                </div>
+              </div>
+              <div class="input-group mb-3">
+                <span class="form-control finalResults finalResultsVar6S rounded-result">0</span>
+              </div>
+              <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                <input type="checkbox" class="btn-check" id="btncheck6" autocomplete="off" disabled>
+                <label class="btn btn-outline-primary rounded-result result-check" id="labelcheck6" for="btncheck6" onclick="results(6)">Show Results</label>
+                <button type="button" class="btn btn-outline-primary rounded-result" onclick="resetResults(6)">Reset</button>
+              </div>
+              <div class="container class-hidden" id="resultsTableVar6">
+                <div class="row">
+                  <h3>Prime Implicants Table</h3>
+                  <section>
+                    <div class="table-responsive text-nowrap">
+                      <table class="table table-bordered border-secondary table-entries table-stripped primeImplicantTableVar6">
+                        <thead class="primeImplicantTableVar6-head"></thead>
+                        <thead class="primeImplicantTableVar6-subhead"></thead>
+                        <!-- contents -->
+                        <tbody class="primeImplicantTableVar6-body"></tbody>
+                      </table>
+                    </div>
+                  </section>
+                </div>
+                <div class="row">
+                  <h3>Essential Prime Implicants Table</h3>
+                  <section>
+                    <div class="table-responsive text-nowrap">
+                      <table class="table table-bordered border-secondary table-entries table-stripped essentialPrimeImplicantsVar6">
+                        <thead class="essentialPrimeImplicantsVar6-head"></thead>
+                        <!-- contents -->
+                        <tbody class="essentialPrimeImplicantsVar6-body"></tbody>
+                        <!-- footer -->
+                        <tbody class="essentialPrimeImplicantsVar6-foot"></tbody>
+                      </table>
+                    </div>
+                  </section>
+                  <p></p>
+                  <p class="essentialPrimeImplicantsVar6-results"></p>
+                  <p class="finalResultsVar6"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- n variables div -->
+        <div class="accordion-item border-info">
+          <h2 class="accordion-header" id="headingN">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseN" aria-expanded="false" aria-controls="collapseN">
+              General n Variables
+            </button>
+          </h2>
+          <div id="collapseN" class="accordion-collapse collapse" aria-labelledby="headingN" data-bs-parent="#accordionExample">
             <div class="accordion-body">
               <h6 class="text-justified">
                 <ul>
@@ -373,35 +644,28 @@
                   </li>
                 </ul>
               </h6>
-              <div class="input-group mb-3">
-                <div class="form-floating mb-3">
-                  <input type="text" id="nVarsMinterms" class="form-control" placeholder="Minterms">
+              <div class="input-group mb-3 n-input-group">
+                <div class="form-floating mb-3 w-ninput" style="width: 250px">
+                  <input type="text" id="nVarsMinterms" class="form-control rounded-0" placeholder="Minterms">
                   <label for="nVarsMinterms">Minterms</label>
                 </div>
-                <div class="form-floating mb-3">
+                <div class="form-floating mb-3" style="width: 250px">
                   <input type="text" id="nVarsDontCares" class="form-control" placeholder="Dont Cares">
                   <label for="nVarsDontCares">Dont Care Terms</label>
                 </div>
-                <div class="form-floating mb-3">
+                <div class="form-floating mb-3" style="width: 50px">
                   <input type="text" id="nVarsNoVars" class="form-control" placeholder="No. of Variables">
                   <label for="nVarsNoVars">No. of Variables</label>
                 </div>
-                <!-- <input type="text" id="nVarsMinterms" class="form-control" placeholder="Minterms" aria-label="Minterms" aria-describedby="button-addon2" style="width: 250px;">
-                <input type="text" id="nVarsDontCares" class="form-control" placeholder="Dont Cares" aria-label="Dont Cares" aria-describedby="button-addon2" style="width: 250px;">
-                <input type="text" id="nVarsNoVars" class="form-control" placeholder="No. of Variables" aria-label="No. of Variables" aria-describedby="button-addon2" style="width: 20px;"> -->
-
-                <!-- <button type="button" class="btn btn-outline-primary">Primary</button> -->
-                <button class="btn btn-outline-secondary n-reset" type="button" onclick="resetResultsn()">Reset</button>
               </div>
               <div class="input-group mb-3">
-                <span class="form-control finalResults finalResultsVar0S">0</span>
+                <span class="form-control finalResults finalResultsVar0S rounded-result">0</span>
               </div>
-              <div class="btn-group" role="group" aria-label="Basic radio toggle button group n">
-                <button type="button" class="btn btn-outline-primary" onclick="calculateResultn()">Compute Output</button>
-                <input type="radio" class="btn-check" name="btnradion" id="btnradion2" autocomplete="off">
-                <label class="btn btn-outline-primary" for="btnradion2" onclick="showResult(0)">Show Results Table</label>
-                <input type="radio" class="btn-check" name="btnradion" id="btnradion3" autocomplete="off" checked>
-                <label class="btn btn-outline-primary" for="btnradion3" onclick="hideResult(0)">Hide Results Table</label>
+              <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                <button type="button" class="btn btn-outline-primary rounded-result" onclick="calculateResultn()">Calculate</button>
+                <input type="checkbox" class="btn-check" id="btncheck0" autocomplete="off" disabled>
+                <label class="btn btn-outline-primary rounded-result result-check" id="labelcheck0" for="btncheck0" onclick="results(0)">Show Results</label>
+                <button type="button" class="btn btn-outline-primary rounded-result" onclick="resetResultsn()">Reset</button>
               </div>
               <div class="modal fade" id="common-error" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="exampleModalLabel1" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
