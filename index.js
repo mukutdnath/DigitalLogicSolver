@@ -16,7 +16,6 @@ function toggleTableValues() {
   calculateResult(this.id[3]);
 }
 
-
 function calculateResult(noVars) {
   const noOfVars = parseInt(noVars);
   const n = Math.pow(2, noOfVars);
