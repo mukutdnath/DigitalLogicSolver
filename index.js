@@ -4,7 +4,6 @@ for (var i = 0; i < twoVarNo; i++) {
   document.querySelectorAll(".tableValue")[i].addEventListener("click", toggleTableValues);
 }
 
-
 function toggleTableValues() {
   if (this.innerHTML == 0) {
     this.innerHTML = 1;
@@ -19,7 +18,7 @@ function toggleTableValues() {
 
 
 function calculateResult(noVars) {
-  const noOfVars = noVars;
+  const noOfVars = parseInt(noVars);
   const n = Math.pow(2, noOfVars);
   var minTerms = [];
   var dontCare = [];
@@ -105,7 +104,9 @@ function calculateResult(noVars) {
   const dictVariables = {
     2: "xy",
     3: "xyz",
-    4: "wxyz"
+    4: "wxyz",
+    5: "vwxyz",
+    6: "uvwxyz"
   };
   const dictTableNo = {
     1: "A",
@@ -126,10 +127,15 @@ function calculateResult(noVars) {
   var arrayStructTerms = [];
   arrayStructTerms[0] = structMinAndDCTerms;
   // getting other entries using the computing function
-  for (var i = 1; i < noOfVars + 1; i++) { // add +1 for last redundant implicant also
+  // console.log(noOfVars);
+  // console.log(noOfVars+1);
+  for (var i = 1; i < noOfVars+1; i++) { // add +1 for last redundant implicant also
     // call the function that returns computed entries next matchings.
     var currentArray = arrayStructTerms[i - 1];
     var newArray = getNextArrayOfPI(currentArray);
+    if (newArray.length == 0){
+      break;
+    }
     arrayStructTerms[i - 1] = currentArray;
     arrayStructTerms[i] = newArray;
   }
@@ -137,7 +143,8 @@ function calculateResult(noVars) {
   var newInnerHTMLHead = "<tr>";
   var newInnerHTMLSubHead = "<tr>";
   var newInnerHTMLBody = "<tr>";
-  for (i = 0; i < noOfVars + 1; i++) { // add +1 for last redundant implicant also
+  // console.log(arrayStructTerms);
+  for (i = 0; i < arrayStructTerms.length; i++) { // add +1 for last redundant implicant also
     var colWidth = 2 + 2 * Math.pow(2, i);
     // modifying table head
     newInnerHTMLHead = newInnerHTMLHead.concat("<th scope=\"col\">\(");
@@ -573,9 +580,18 @@ function calculateResult(noVars) {
   document.querySelector(identifierFinalResultS).innerHTML = resultS;
 
   var element = document.querySelector(identifierFinalResultS);
-  element.classList.add("border-success");
+  element.classList.add("border-primary");
+  element.classList.add("bg-info-subtle");
   element.classList.add("shadow-sm");
+  document.querySelector("#btncheck" + noOfVars.toString()).removeAttribute("disabled");
 }
+
+
+// ---------------------------------------------------------------------------------------------
+
+
+
+//----------------------------------------------------------------------------------------------
 
 function calculateResultn() {
   var minTerms = document.querySelector("#nVarsMinterms").value.split(" ");
@@ -584,12 +600,38 @@ function calculateResultn() {
   if (isNaN(noVars) || noVars < 2) {
     noVars = 2;
   }
+  var flagM = false;
+  var flagD = false;
   for (var i = 0; i < minTerms.length; i++) {
+    if (isNaN(parseFloat(minTerms[i]))){
+      document.querySelector("#nVarsMinterms").classList.add("is-invalid");
+      flagM = true;
+      break;
+    }
     minTerms[i] = parseFloat(minTerms[i]);
   }
+
   for (var i = 0; i < dontCare.length; i++) {
+    if (dontCare[0] == ''){
+      break;
+    }
+    if (isNaN(parseFloat(dontCare[i]))){
+      document.querySelector("#nVarsDontCares").classList.add("is-invalid");
+      if(dontCare.length != 0){
+      flagD = true;
+      break;
+      }
+    }
     dontCare[i] = parseFloat(dontCare[i]);
   }
+
+  if(flagM || flagD){
+    return 0;
+  }
+
+  document.querySelector("#nVarsMinterms").classList.remove("is-invalid");
+  document.querySelector("#nVarsDontCares").classList.remove("is-invalid");
+
   minTerms = removeDuplicates(minTerms);
   dontCare = removeDuplicates(dontCare);
 
@@ -643,6 +685,7 @@ function calculateResultn() {
   function calculateResultnNext(allTerms, minTerms, dontCare, noVars) {
     if (noVars > 20) {
       var myModal2 = new bootstrap.Modal(document.getElementById('no-terms-error'), "data-bs-toggle=\"modal\"");
+      document.querySelector("#nVarsNoVars").classList.add("is-invalid");
       myModal2.show();
       return 0;
     }
@@ -652,6 +695,7 @@ function calculateResultn() {
     // console.log(noVars);
     //----------------------------------------------
     // next tasks, compare no. of variables and make decision.
+    document.querySelector("#nVarsNoVars").classList.remove("is-invalid");
     var maxTerm = getMaxOfArray(allTerms);
     if (maxTerm > Math.pow(2, noVars) - 1) {
       for (var i = noVars + 1; i < 20; i++) { // considering that maximum allowable no of variables is 20
@@ -666,6 +710,7 @@ function calculateResultn() {
 
       }
     }
+    document.querySelector("#nVarsNoVars").value = noVars;
     // console.log(allTerms);
     // console.log(minTerms);
     // console.log(dontCare);
@@ -722,10 +767,10 @@ function calculateResultn() {
     document.querySelector(identifierHead).innerHTML = "";
     document.querySelector(identifierSubHead).innerHTML = "";
     const dictVariables = {
-      1: "x",
-      2: "xy",
-      3: "xyz",
-      4: "wxyz",
+      1: "a",
+      2: "ab",
+      3: "abc",
+      4: "abcd",
       5: "abcde",
       6: "abcdef",
       7: "abcdefg",
@@ -775,10 +820,14 @@ function calculateResultn() {
     var arrayStructTerms = [];
     arrayStructTerms[0] = structMinAndDCTerms;
     // getting other entries using the computing function
+    // console.log(noOfVars+1);
     for (var i = 1; i < noOfVars + 1; i++) { // add +1 for last redundant implicant also
       // call the function that returns computed entries next matchings.
       var currentArray = arrayStructTerms[i - 1];
       var newArray = getNextArrayOfPI(currentArray);
+      if (newArray.length == 0){
+        break;
+      }
       arrayStructTerms[i - 1] = currentArray;
       arrayStructTerms[i] = newArray;
     }
@@ -786,7 +835,7 @@ function calculateResultn() {
     var newInnerHTMLHead = "<tr>";
     var newInnerHTMLSubHead = "<tr>";
     var newInnerHTMLBody = "<tr>";
-    for (i = 0; i < noOfVars + 1; i++) { // add +1 for last redundant implicant also
+    for (i = 0; i < arrayStructTerms.length; i++) { // add +1 for last redundant implicant also
       var colWidth = 2 + 2 * Math.pow(2, i);
       // modifying table head
       newInnerHTMLHead = newInnerHTMLHead.concat("<th scope=\"col\">\(");
@@ -1225,8 +1274,10 @@ function calculateResultn() {
     document.querySelector(identifierFinalResult).innerHTML = result;
     document.querySelector(identifierFinalResultS).innerHTML = resultS;
     var element = document.querySelector(identifierFinalResultS);
-    element.classList.add("border-success");
+    element.classList.add("border-primary");
+    element.classList.add("bg-info-subtle");
     element.classList.add("shadow-sm");
+    document.querySelector("#btncheck0").removeAttribute("disabled");
 
     //-------------------------------
   }
@@ -1250,9 +1301,11 @@ function getTermFromLiteral(literal) {
   const mToVars = {
     2: ['x', 'y'],
     3: ['x', 'y', 'z'],
-    4: ['w', 'x', 'y', 'z']
+    4: ['w', 'x', 'y', 'z'],
+    5: ['v', 'w', 'x', 'y', 'z'],
+    6: ['u', 'v', 'w', 'x', 'y', 'z']
   };
-  if (m > 4) {
+  if (m > 6) {
     var temp = [];
     var dictTableNo = {
       1: "A",
@@ -1299,6 +1352,18 @@ function getTermFromLiteral(literal) {
   return term;
 }
 
+function results(noOfVars){
+  var element = document.querySelector("#labelcheck"+noOfVars.toString());
+  // console.log(element);
+  if (element.innerHTML == "Show Results"){
+    showResult(noOfVars);
+    element.innerHTML = "Hide Results";
+  } else {
+    hideResult(noOfVars)
+    element.innerHTML = "Show Results";
+  }
+}
+
 function showResult(noOfVars) {
   var identfier = "#resultsTableVar";
   identfier = identfier.concat(noOfVars.toString());
@@ -1326,9 +1391,9 @@ function resetResults(noOfVars) {
   }
   document.querySelector(identifierResultsS).innerHTML = 0;
   var element = document.querySelector(identifierResultsS);
-  element.classList.remove("border-success");
+  element.classList.remove("border-primary");
+  element.classList.remove("bg-info-subtle");
   element.classList.remove("shadow-sm");
-
   // resetting prime implicants table and essential prime implicants table
   var identifierPITable = ".primeImplicantTableVar";
   identifierPITable = identifierPITable.concat(noOfVars.toString());
@@ -1353,6 +1418,13 @@ function resetResults(noOfVars) {
   var identifierFinalResults = ".finalResultsVar";
   identifierFinalResults = identifierFinalResults.concat(noOfVars.toString());
   document.querySelector(identifierFinalResults).innerHTML = "";
+
+  //-----------------------------------
+
+  hideResult(noOfVars);
+  document.querySelector("#labelcheck"+noOfVars.toString()).innerHTML = "Show Results";
+  document.querySelector("#btncheck"+noOfVars.toString()).checked = false;
+  document.querySelector("#btncheck"+noOfVars.toString()).disabled = true;
 }
 
 function resetResultsn() {
@@ -1365,7 +1437,8 @@ function resetResultsn() {
   identifierResultsS = identifierResultsS.concat("S");
   document.querySelector(identifierResultsS).innerHTML = 0;
   var element = document.querySelector(identifierResultsS);
-  element.classList.remove("border-success");
+  element.classList.remove("border-primary");
+  element.classList.remove("bg-info-subtle");
   element.classList.remove("shadow-sm");
   // resetting prime implicants table and essential prime implicants table
   var identifierPITable = ".primeImplicantTableVar";
@@ -1390,6 +1463,14 @@ function resetResultsn() {
   var identifierFinalResults = ".finalResultsVar";
   identifierFinalResults = identifierFinalResults.concat("0");
   document.querySelector(identifierFinalResults).innerHTML = "";
+  document.querySelector("#nVarsNoVars").classList.remove("is-invalid");
+  document.querySelector("#nVarsMinterms").classList.remove("is-invalid");
+  document.querySelector("#nVarsDontCares").classList.remove("is-invalid");
+
+  hideResult(0);
+  document.querySelector("#labelcheck0").innerHTML = "Show Results";
+  document.querySelector("#btncheck0").checked = false;
+  document.querySelector("#btncheck0").disabled = true;
 }
 
 function lightDarkMode() {
@@ -1399,12 +1480,12 @@ function lightDarkMode() {
   if (theme == "dark") {
     element.removeAttribute("data-bs-theme");
     element.setAttribute("data-bs-theme", "light");
-    var iconBtn = document.querySelector(".btn-icon");
-    iconBtn.classList.remove("btn-dark");
-    iconBtn.classList.add("btn-light");
-    var icon = document.querySelector(".fa");
-    icon.classList.remove("fa-moon");
-    icon.classList.add("fa-sun");
+    // var iconBtn = document.querySelector(".btn-icon");
+    // iconBtn.classList.remove("btn-dark");
+    // iconBtn.classList.add("btn-light");
+    var icon = document.querySelector(".bi");
+    icon.classList.remove("bi-moon-stars");
+    icon.classList.add("bi-brightness-high");
     var resetBtn =  document.querySelectorAll(".btn-input-reset");
     for(var i=0; i<resetBtn.length; i++){
       resetBtn[i].classList.remove("btn-dark");
@@ -1421,12 +1502,12 @@ function lightDarkMode() {
   } else {
     element.removeAttribute("data-bs-theme");
     element.setAttribute("data-bs-theme", "dark");
-    var iconBtn = document.querySelector(".btn-icon");
-    iconBtn.classList.remove("btn-light");
-    iconBtn.classList.add("btn-dark");
-    var icon = document.querySelector(".fa");
-    icon.classList.remove("fa-sun");
-    icon.classList.add("fa-moon");
+    // var iconBtn = document.querySelector(".btn-icon");
+    // iconBtn.classList.remove("btn-light");
+    // iconBtn.classList.add("btn-dark");
+    var icon = document.querySelector(".bi");
+    icon.classList.remove("bi-brightness-high");
+    icon.classList.add("bi-moon-stars");
     var resetBtn =  document.querySelectorAll(".btn-input-reset");
     for(var i=0; i<resetBtn.length; i++){
       resetBtn[i].classList.remove("btn-light");
@@ -1440,5 +1521,5 @@ function lightDarkMode() {
     document.querySelector("#nVarsDontCares").classList.add("bg-dark");
     document.querySelector("#nVarsNoVars").classList.add("bg-dark");
 
-  } 
+  }
 }
