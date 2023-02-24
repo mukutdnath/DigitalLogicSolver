@@ -4,6 +4,7 @@ body{
 p{
   font-size: 18px;
 }
+
 h3{
   padding: 1rem;
 }
@@ -33,11 +34,6 @@ h3{
 .form-control{
   font-family: 'JetBrains Mono', monospace;
 }
-.reset-btn{
-  display: flex;
-  align-items: center;
-  align-content: center;
-}
 .finalResults{
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
@@ -53,7 +49,7 @@ h3{
   border-radius: 1.5rem;
 }
 .result-check{
-  width: 7.5rem;
+  width: 9rem;
 }
 .w-ninput{
   width: 50%;
