@@ -1,4 +1,4 @@
-var twoVarNo = document.querySelectorAll(".tableValue").length; 
+var twoVarNo = document.querySelectorAll(".tableValue").length;
 
 for (var i = 0; i < twoVarNo; i++) {
   document.querySelectorAll(".tableValue")[i].addEventListener("click", toggleTableValues);
@@ -15,6 +15,7 @@ function toggleTableValues() {
   // console.log(this.id[3]);
   calculateResult(this.id[3]);
 }
+
 
 function calculateResult(noVars) {
   const noOfVars = parseInt(noVars);
@@ -335,7 +336,7 @@ function calculateResult(noVars) {
   newInnerHTMLBody = newInnerHTMLBody.concat("<td scope=\"col\">");
   for (i = 0; i < arrayPrimeImplicants.length; i++) {
     newInnerHTMLBody = newInnerHTMLBody.concat("<div class=\"row\"><div class=\"col\">");
-    newInnerHTMLBody = newInnerHTMLBody.concat(getTermFromLiteral(arrayPrimeImplicants[i].literals));
+    newInnerHTMLBody = newInnerHTMLBody.concat(getTermFromLiteral(arrayPrimeImplicants[i].literals, false));
     newInnerHTMLBody = newInnerHTMLBody.concat("</div></div>");
   }
   newInnerHTMLBody = newInnerHTMLBody.concat("</td>");
@@ -467,7 +468,7 @@ function calculateResult(noVars) {
   if (essentialIPsMinterms.length != 0) {
     newInnerHTMLResults = newInnerHTMLResults.concat("Essential Prime Implicants: <br><span style=\"font-family: 'JetBrains Mono', monospace;\">");
     for (var i = 0; i < essentialPIs.length; i++) {
-      newInnerHTMLResults = newInnerHTMLResults.concat(getTermFromLiteral(essentialPIs[i].literals));
+      newInnerHTMLResults = newInnerHTMLResults.concat(getTermFromLiteral(essentialPIs[i].literals, false));
       if (i != essentialPIs.length - 1) {
         newInnerHTMLResults = newInnerHTMLResults.concat(", ");
       }
@@ -477,7 +478,7 @@ function calculateResult(noVars) {
       newInnerHTMLResults = newInnerHTMLResults.concat("<br>");
       newInnerHTMLResults = newInnerHTMLResults.concat("Of which <span class=\"dont-care-color\" style=\"font-family: 'JetBrains Mono', monospace;\">");
       for (var i = 0; i < essentialPIsOnlyDC.length; i++) {
-        newInnerHTMLResults = newInnerHTMLResults.concat(getTermFromLiteral(essentialPIsOnlyDC[i].literals));
+        newInnerHTMLResults = newInnerHTMLResults.concat(getTermFromLiteral(essentialPIsOnlyDC[i].literals, false));
         if (i != essentialPIsOnlyDC.length - 1) {
           newInnerHTMLResults = newInnerHTMLResults.concat(", ");
         }
@@ -485,7 +486,7 @@ function calculateResult(noVars) {
       newInnerHTMLResults = newInnerHTMLResults.concat("</span> contains only dont care Minterms");
       newInnerHTMLResults = newInnerHTMLResults.concat("<br>Required Essential Prime Implicants: <br><span style=\"font-family: 'JetBrains Mono', monospace;\">");
       for (var i = 0; i < essentialPIsWOOnlyDC.length; i++) {
-        newInnerHTMLResults = newInnerHTMLResults.concat(getTermFromLiteral(essentialPIsWOOnlyDC[i].literals));
+        newInnerHTMLResults = newInnerHTMLResults.concat(getTermFromLiteral(essentialPIsWOOnlyDC[i].literals, false));
         if (i != essentialPIsWOOnlyDC.length - 1) {
           newInnerHTMLResults = newInnerHTMLResults.concat(", ");
         }
@@ -514,7 +515,7 @@ function calculateResult(noVars) {
   } else if (remainingMinterms.length == 0) {
     var ePITerms = [];
     for (var i = 0; i < essentialPIsWOOnlyDC.length; i++) {
-      ePITerms = ePITerms.concat(getTermFromLiteral(essentialPIsWOOnlyDC[i].literals));
+      ePITerms = ePITerms.concat(getTermFromLiteral(essentialPIsWOOnlyDC[i].literals, false));
     }
     var resultS = "";
     var result = "All minterms in the Prime Implicants are covered by the essential Prime Implicants. The final simplified logic formula is<br><span style=\"font-family: 'JetBrains Mono', monospace;\">";
@@ -554,11 +555,11 @@ function calculateResult(noVars) {
     result = result.concat("<br><span style=\"font-family: 'JetBrains Mono', monospace;\">");
     var ePITerms = [];
     for (var i = 0; i < essentialPIsWOOnlyDC.length; i++) {
-      ePITerms = ePITerms.concat(getTermFromLiteral(essentialPIsWOOnlyDC[i].literals));
+      ePITerms = ePITerms.concat(getTermFromLiteral(essentialPIsWOOnlyDC[i].literals, false));
     }
     var remainingPITerms = [];
     for (var i = 0; i < remainingPIs.length; i++) {
-      remainingPITerms = remainingPITerms.concat(getTermFromLiteral(remainingPIs[i].literals));
+      remainingPITerms = remainingPITerms.concat(getTermFromLiteral(remainingPIs[i].literals, false));
     }
     result = result.concat(remainingPITerms.join(", "));
     result = result.concat("</span><br>");
@@ -599,33 +600,32 @@ function calculateResultn() {
   if (isNaN(noVars) || noVars < 2) {
     noVars = 2;
   }
-  var flagM = false;
-  var flagD = false;
-  for (var i = 0; i < minTerms.length; i++) {
-    if (isNaN(parseFloat(minTerms[i]))){
-      document.querySelector("#nVarsMinterms").classList.add("is-invalid");
-      flagM = true;
-      break;
+  //--------------------------------------------
+  //----------- Removing empty elements from both the lists
+
+  function removeEmptyElements(list){
+    var temp = [];
+    for(var i = 0; i < list.length; i++){
+      if(isNaN(parseFloat(list[i])) == false){
+        temp.push(list[i]);
+      }
     }
+    return temp;
+  }
+
+  minTerms = removeEmptyElements(minTerms);
+  dontCare = removeEmptyElements(dontCare);
+
+  // console.log(minTerms);
+  //----------------------------=--------------------------
+
+
+  for (var i = 0; i < minTerms.length; i++) {
     minTerms[i] = parseFloat(minTerms[i]);
   }
 
   for (var i = 0; i < dontCare.length; i++) {
-    if (dontCare[0] == ''){
-      break;
-    }
-    if (isNaN(parseFloat(dontCare[i]))){
-      document.querySelector("#nVarsDontCares").classList.add("is-invalid");
-      if(dontCare.length != 0){
-      flagD = true;
-      break;
-      }
-    }
     dontCare[i] = parseFloat(dontCare[i]);
-  }
-
-  if(flagM || flagD){
-    return 0;
   }
 
   document.querySelector("#nVarsMinterms").classList.remove("is-invalid");
@@ -689,11 +689,6 @@ function calculateResultn() {
       return 0;
     }
 
-    // console.log(minTerms);
-    // console.log(dontCare);
-    // console.log(noVars);
-    //----------------------------------------------
-    // next tasks, compare no. of variables and make decision.
     document.querySelector("#nVarsNoVars").classList.remove("is-invalid");
     var maxTerm = getMaxOfArray(allTerms);
     if (maxTerm > Math.pow(2, noVars) - 1) {
@@ -709,11 +704,9 @@ function calculateResultn() {
 
       }
     }
+    document.querySelector("#nVarsMinterms").value = minTerms.join(" ");
+    document.querySelector("#nVarsDontCares").value = dontCare.join(" ");
     document.querySelector("#nVarsNoVars").value = noVars;
-    // console.log(allTerms);
-    // console.log(minTerms);
-    // console.log(dontCare);
-    // console.log(noVars);
 
     function StructTerms(minterms, literals, onesSum, matched) {
       this.minterms = minterms;
@@ -818,6 +811,7 @@ function calculateResultn() {
     // making the array of computed entries:
     var arrayStructTerms = [];
     arrayStructTerms[0] = structMinAndDCTerms;
+
     // getting other entries using the computing function
     // console.log(noOfVars+1);
     for (var i = 1; i < noOfVars + 1; i++) { // add +1 for last redundant implicant also
@@ -830,7 +824,8 @@ function calculateResultn() {
       arrayStructTerms[i - 1] = currentArray;
       arrayStructTerms[i] = newArray;
     }
-    // console.log(arrayStructTerms);
+
+    
     var newInnerHTMLHead = "<tr>";
     var newInnerHTMLSubHead = "<tr>";
     var newInnerHTMLBody = "<tr>";
@@ -1030,7 +1025,7 @@ function calculateResultn() {
     newInnerHTMLBody = newInnerHTMLBody.concat("<td scope=\"col\">");
     for (i = 0; i < arrayPrimeImplicants.length; i++) {
       newInnerHTMLBody = newInnerHTMLBody.concat("<div class=\"row\"><div class=\"col\">");
-      newInnerHTMLBody = newInnerHTMLBody.concat(getTermFromLiteral(arrayPrimeImplicants[i].literals));
+      newInnerHTMLBody = newInnerHTMLBody.concat(getTermFromLiteral(arrayPrimeImplicants[i].literals, true));
       newInnerHTMLBody = newInnerHTMLBody.concat("</div></div>");
     }
     newInnerHTMLBody = newInnerHTMLBody.concat("</td>");
@@ -1162,7 +1157,7 @@ function calculateResultn() {
     if (essentialIPsMinterms.length != 0) {
       newInnerHTMLResults = newInnerHTMLResults.concat("Essential Prime Implicants: <br><span style=\"font-family: 'JetBrains Mono', monospace;\">");
       for (var i = 0; i < essentialPIs.length; i++) {
-        newInnerHTMLResults = newInnerHTMLResults.concat(getTermFromLiteral(essentialPIs[i].literals));
+        newInnerHTMLResults = newInnerHTMLResults.concat(getTermFromLiteral(essentialPIs[i].literals, true));
         if (i != essentialPIs.length - 1) {
           newInnerHTMLResults = newInnerHTMLResults.concat(", ");
         }
@@ -1172,7 +1167,7 @@ function calculateResultn() {
         newInnerHTMLResults = newInnerHTMLResults.concat("<br>");
         newInnerHTMLResults = newInnerHTMLResults.concat("Of which <span class=\"dont-care-color\" style=\"font-family: 'JetBrains Mono', monospace;\">");
         for (var i = 0; i < essentialPIsOnlyDC.length; i++) {
-          newInnerHTMLResults = newInnerHTMLResults.concat(getTermFromLiteral(essentialPIsOnlyDC[i].literals));
+          newInnerHTMLResults = newInnerHTMLResults.concat(getTermFromLiteral(essentialPIsOnlyDC[i].literals, true));
           if (i != essentialPIsOnlyDC.length - 1) {
             newInnerHTMLResults = newInnerHTMLResults.concat(", ");
           }
@@ -1180,7 +1175,7 @@ function calculateResultn() {
         newInnerHTMLResults = newInnerHTMLResults.concat("</span> contains only dont care Minterms");
         newInnerHTMLResults = newInnerHTMLResults.concat("<br>Required Essential Prime Implicants: <br><span style=\"font-family: 'JetBrains Mono', monospace;\">");
         for (var i = 0; i < essentialPIsWOOnlyDC.length; i++) {
-          newInnerHTMLResults = newInnerHTMLResults.concat(getTermFromLiteral(essentialPIsWOOnlyDC[i].literals));
+          newInnerHTMLResults = newInnerHTMLResults.concat(getTermFromLiteral(essentialPIsWOOnlyDC[i].literals, true));
           if (i != essentialPIsWOOnlyDC.length - 1) {
             newInnerHTMLResults = newInnerHTMLResults.concat(", ");
           }
@@ -1209,7 +1204,7 @@ function calculateResultn() {
     } else if (remainingMinterms.length == 0) {
       var ePITerms = [];
       for (var i = 0; i < essentialPIsWOOnlyDC.length; i++) {
-        ePITerms = ePITerms.concat(getTermFromLiteral(essentialPIsWOOnlyDC[i].literals));
+        ePITerms = ePITerms.concat(getTermFromLiteral(essentialPIsWOOnlyDC[i].literals, true));
       }
       var resultS = "";
       var result = "All minterms in the Prime Implicants are covered by the essential Prime Implicants. The final simplified logic formula is<br><span style=\"font-family: 'JetBrains Mono', monospace;\">";
@@ -1249,11 +1244,11 @@ function calculateResultn() {
       result = result.concat("<br><span style=\"font-family: 'JetBrains Mono', monospace;\">");
       var ePITerms = [];
       for (var i = 0; i < essentialPIsWOOnlyDC.length; i++) {
-        ePITerms = ePITerms.concat(getTermFromLiteral(essentialPIsWOOnlyDC[i].literals));
+        ePITerms = ePITerms.concat(getTermFromLiteral(essentialPIsWOOnlyDC[i].literals, true));
       }
       var remainingPITerms = [];
       for (var i = 0; i < remainingPIs.length; i++) {
-        remainingPITerms = remainingPITerms.concat(getTermFromLiteral(remainingPIs[i].literals));
+        remainingPITerms = remainingPITerms.concat(getTermFromLiteral(remainingPIs[i].literals, true));
       }
       result = result.concat(remainingPITerms.join(", "));
       result = result.concat("</span><br>");
@@ -1294,7 +1289,7 @@ function getMaxOfArray(numArray) {
   return Math.max.apply(null, numArray);
 }
 
-function getTermFromLiteral(literal) {
+function getTermFromLiteral(literal, isGeneral) {
   var m = literal.length;
   var term = "";
   const mToVars = {
@@ -1304,7 +1299,7 @@ function getTermFromLiteral(literal) {
     5: ['v', 'w', 'x', 'y', 'z'],
     6: ['u', 'v', 'w', 'x', 'y', 'z']
   };
-  if (m > 6) {
+  if (isGeneral) {
     var temp = [];
     var dictTableNo = {
       1: "A",
