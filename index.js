@@ -2,7 +2,7 @@ var twoVarNo = document.querySelectorAll(".tableValue").length;
 
 for (var i = 0; i < twoVarNo; i++) {
   document.querySelectorAll(".tableValue")[i].addEventListener("click", toggleTableValues);
-}
+} 
 
 function toggleTableValues() {
   if (this.innerHTML == 0) {
